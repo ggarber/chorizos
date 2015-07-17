@@ -1,6 +1,6 @@
 import urllib3
 from bs4 import BeautifulSoup # third-party library!
-from time import sleep
+from time import sleep, time
 
 def getIdealistData():
     from random import random
@@ -34,10 +34,10 @@ def getIdealistData():
 def addInfoCoord():
     import googlemaps
     import os
-    #key = "AIzaSyBogRB6YkamhIRhV7zxryo3yvCH5_FLZ5E" #javgarber
-    #key = "AIzaSyCS4XFKoYwJZE5ub82IKiEQTg8y4mPqi8Q" #javier.garcia.bernardo
-    #key = "AIzaSyDnijofJryUUbfBBXyKAZYLTwsM7UPalF0" #btcjgb00
-    #key = "AIzaSyBzpUToXSGMshupQPKzJ_wMSpF6uPDDgVI" #mesiaca
+    key = "AIzaSyBogRB6YkamhIRhV7zxryo3yvCH5_FLZ5E" #javgarber
+    ##key = "AIzaSyCS4XFKoYwJZE5ub82IKiEQTg8y4mPqi8Q" #javier.garcia.bernardo
+    ##key = "AIzaSyDnijofJryUUbfBBXyKAZYLTwsM7UPalF0" #btcjgb00
+    ##key = "AIzaSyBzpUToXSGMshupQPKzJ_wMSpF6uPDDgVI" #mesiaca
     gmaps = googlemaps.Client(key=key)
 
 
@@ -50,17 +50,47 @@ def addInfoCoord():
         for line in fOut:
             setID.add(line.split("\t")[0])
 
+    j = 0
+    timeI = time()
     with open("../data/idealistaHousesCoord.txt","a") as fOut:
         with open("../data/idealistaHouses.txt") as f:
             for i,line in enumerate(f):
                 print(i)
                 id,address = line.split("\t")[0:2]
                 if not id in setID:
-                    sleep(0.2) ##5 request/sec max
+                    j+=1
+                    ## 5 requests/sec
+                    if j%5 == 0:
+                        if time()-timeI < 1.:
+                            sleep(1.01- (time()-timeI))
+                            timeI = time()
                     coordinates = gmaps.geocode(address)[0]["geometry"]["location"]
                     fOut.write(line.rstrip()+"\t"+"\t".join([str(coordinates['lng']),str(coordinates['lat'])])+"\n")
 
+def plotHouses():
+    import pylab as plt
+    import numpy as np
+    lngList = []
+    latList = []
+    priceList = []
+    with open("../data/idealistaHousesCoord.txt") as f:
+        for i,line in enumerate(f):
+            if i > 0:
+                price, lng,lat = line.split("\t")[-3:]
+                priceList.append(float(price))
+                lngList.append(float(lng))
+                latList.append(float(lat))
+
+    priceList = np.log10(np.log10(np.array(priceList)))
+
+    print(priceList)
+
+    plt.scatter(lngList,latList,marker='s',c=priceList, cmap=plt.cm.coolwarm,edgecolor="none")
+    plt.xlim((-3.85,-3.55))
+    plt.ylim((40.3,40.55))
+    plt.show()
 
 if __name__ == "__main__":
     #getIdealistData()
-    addInfoCoord()
+    #addInfoCoord()
+    plotHouses()
