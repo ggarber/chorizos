@@ -11403,7 +11403,7 @@
 /inmueble/30687910/	calle joaquín maría lópez, Gaztambide, Madrid	1400
 /inmueble/30687830/	calle de alberto aguilera, Malasaña-Universidad, Madrid	600
 /inmueble/30687421/	calle de fernando el católico, Gaztambide, Madrid	570
-/inmueble/30687293/	calle fernãn gonzãlez, Pacífico, Madrid	1200
+/inmueble/30687293/	calle fernan gonzalez, Pacífico, Madrid	1200
 /inmueble/30687171/	calle cartagena, Guindalera, Madrid	725
 /inmueble/30687099/	abardero, Tres Olivos - Valverde, Madrid	400
 /inmueble/30686473/	calle de puentelarra, Santa Eugenia, Madrid	759
@@ -13770,7 +13770,6 @@
 /inmueble/30478468/	calle de la Oca, 8, San Isidro, Madrid	780
 /inmueble/30477813/	calle Ramos Carrión, 3, Prosperidad, Madrid	700
 /inmueble/30470713/	calle Avellana, 5, Quintana, Madrid	600
-/inmueble/30474384/	calle Virgen de los Desamparados, 28, Los Ángeles, Madrid	599
 /inmueble/30462208/	calle de Costanilla de los Ángeles, 5, Palacio, Madrid	700
 /inmueble/30474324/	calle Guadalix, 7, Berruguete, Madrid	450
 /inmueble/30472811/	calle de Ricardo Ortiz, 39, Ventas, Madrid	800
